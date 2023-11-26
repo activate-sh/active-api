@@ -1,0 +1,200 @@
+from fastapi import FastAPI
+from faker import Faker
+from faker.providers import internet
+from typing import Optional
+
+fake = Faker()
+client = FastAPI()
+
+
+@client.get('/')
+async def main():
+    '''about me for this project'''
+    return {
+        'status': True,
+        'programmer': 'amirali irvany',
+        'rubika': '@activate-sh',
+        'github': 'https://github.com/activate-sh',
+        'email': 'dev.amirali.irvany@gmail.com'
+    }
+
+
+
+@client.get('/fake/{__type__}/{__range__}')
+async def main(__type__: str, __range__: Optional[int]=None):
+    '''this is docstring'''
+    if __type__ == 'text':
+        return {
+            'status': True,
+            'programmer': 'amirali irvany',
+            'rubika': '@activate-sh',
+            'type': __type__,
+            'range': __range__,
+            'results': fake.text(__range__)
+        }
+
+
+    elif __range__ > 999:
+        return 'range is very larg'
+    else:
+        if __type__ == 'name':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.name())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'city':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.city())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'ip':
+            results = []
+            fake.add_provider(internet)
+            for item in range(0, __range__):
+                results.append(fake.ipv4_private())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'emoji':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.emoji())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'email':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.ascii_email())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'date':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.date())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'color':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.color())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'digit':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.random_digit())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'address':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.address())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'letters':
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': fake.random_letters(__range__)
+            }
+
+
+        elif __type__ == 'password':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.password())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
