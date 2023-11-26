@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from faker import Faker
 from faker.providers import internet
+from langdetect import detect
 from typing import Optional
 
 fake = Faker()
@@ -9,7 +10,6 @@ client = FastAPI()
 
 @client.get('/')
 async def main():
-    '''about me for this project'''
     return {
         'status': True,
         'programmer': 'amirali irvany',
@@ -19,10 +19,19 @@ async def main():
     }
 
 
+@client.get('/lang/{__text__}')
+async def main(__text__: str):
+    return {
+        'status': True,
+        'programmer': 'amirali irvany',
+        'rubika': '@activate-sh',
+        'result': detect(__text__)
+    }
+
 
 @client.get('/fake/{__type__}/{__range__}')
 async def main(__type__: str, __range__: Optional[int]=None):
-    '''this is docstring'''
+    '''Fake information generator'''
     if __type__ == 'text':
         return {
             'status': True,
