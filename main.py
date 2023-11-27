@@ -1,7 +1,6 @@
 from fastapi import FastAPI, status
 from faker import Faker
 from faker.providers import internet
-from langdetect import detect
 from typing import Optional
 
 fake = Faker()
@@ -12,37 +11,28 @@ client = FastAPI()
 async def main():
     return {
         'status': True,
-        'programmer': 'amirali irvany',
+        'dev': 'amirali irvany',
         'rubika': '@active_api',
         'github': 'https://github.com/activate-sh',
         'email': 'dev.amirali.irvany@gmail.com'
     }
 
 
-@client.get('/lang/{__text__}', status_code=status.HTTP_200_OK)
-async def main(__text__: str):
-    return {
-        'status': True,
-        'programmer': 'amirali irvany',
-        'rubika': '@active_api',
-        'result': detect(__text__)
-    }
-
-
-@client.get('/fake/{__type__}/{__range__}', status_code=status.HTTP_200_OK)
-async def main(__type__: str, __range__: Optional[int]=10):
+parameter = [{'item': 'type'}, {'item': 'range'}]
+@client.get('/fake/', status_code=status.HTTP_200_OK)
+async def index_fake(type: str, count: Optional[int]=10):
     '''Fake information generator'''
     __all__ = ('text', 'name', 'city', 'ip',
                'user-agent', 'emoji', 'email', 'date',
                'color', 'digit', 'address', 'letter', 'password')
 
+    __type__ = type
+    __range__ = count
     if __type__ == 'text':
         return {
             'status': True,
-            'programmer': 'amirali irvany',
+            'dev': 'amirali irvany',
             'rubika': '@active_api',
-            'type': __type__,
-            'range': __range__,
             'results': fake.text(__range__)
         }
 
@@ -57,7 +47,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -72,7 +62,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -88,7 +78,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -103,7 +93,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -118,7 +108,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -133,7 +123,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -148,7 +138,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -163,7 +153,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -178,7 +168,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -193,7 +183,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -204,7 +194,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
         elif __type__ == 'letters':
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
@@ -219,7 +209,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
 
             return {
                 'status': True,
-                'programmer': 'amirali irvany',
+                'dev': 'amirali irvany',
                 'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
