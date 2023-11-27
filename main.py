@@ -1,6 +1,7 @@
 from fastapi import FastAPI, status
 from faker import Faker
 from faker.providers import internet
+from whois import whois
 from typing import Optional
 
 fake = Faker()
@@ -222,3 +223,18 @@ async def index_fake(type: str, count: Optional[int]=10):
                 'detail': 'The information entered is not correct!',
                 'see': __all__
             }
+
+
+parameter = [{'item': 'domain'}]
+@client.get('/domain/', status_code=status.HTTP_200_OK)
+async def index_domain(domain: str):
+    '''
+    Get domain information such as:
+        registrar
+        updated date
+        creation date
+        expiration date
+        name servers
+        and...
+    '''
+    return whois(domain)
