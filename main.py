@@ -8,28 +8,28 @@ fake = Faker()
 client = FastAPI()
 
 
-@client.get('/')
+@client.get('/', status_code=status.HTTP_200_OK)
 async def main():
     return {
         'status': True,
         'programmer': 'amirali irvany',
-        'rubika': '@activate-sh',
+        'rubika': '@active_api',
         'github': 'https://github.com/activate-sh',
         'email': 'dev.amirali.irvany@gmail.com'
     }
 
 
-@client.get('/lang/{__text__}')
+@client.get('/lang/{__text__}', status_code=status.HTTP_200_OK)
 async def main(__text__: str):
     return {
         'status': True,
         'programmer': 'amirali irvany',
-        'rubika': '@activate-sh',
+        'rubika': '@active_api',
         'result': detect(__text__)
     }
 
 
-@client.get('/fake/{__type__}/{__range__}')
+@client.get('/fake/{__type__}/{__range__}', status_code=status.HTTP_200_OK)
 async def main(__type__: str, __range__: Optional[int]=10):
     '''Fake information generator'''
     __all__ = ('text', 'name', 'city', 'ip',
@@ -40,7 +40,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
         return {
             'status': True,
             'programmer': 'amirali irvany',
-            'rubika': '@activate-sh',
+            'rubika': '@active_api',
             'type': __type__,
             'range': __range__,
             'results': fake.text(__range__)
@@ -58,7 +58,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -73,7 +73,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -89,7 +89,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -104,7 +104,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -119,7 +119,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -134,7 +134,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -149,7 +149,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -164,7 +164,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -179,7 +179,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -194,7 +194,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
@@ -205,7 +205,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': fake.random_letters(__range__)
@@ -220,7 +220,7 @@ async def main(__type__: str, __range__: Optional[int]=10):
             return {
                 'status': True,
                 'programmer': 'amirali irvany',
-                'rubika': '@activate-sh',
+                'rubika': '@active_api',
                 'type': __type__,
                 'range': __range__,
                 'results': results
