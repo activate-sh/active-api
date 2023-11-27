@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from faker import Faker
 from faker.providers import internet
 from langdetect import detect
@@ -30,8 +30,12 @@ async def main(__text__: str):
 
 
 @client.get('/fake/{__type__}/{__range__}')
-async def main(__type__: str, __range__: Optional[int]=None):
+async def main(__type__: str, __range__: Optional[int]=10):
     '''Fake information generator'''
+    __all__ = ('text', 'name', 'city', 'ip',
+               'user-agent', 'emoji', 'email', 'date',
+               'color', 'digit', 'address', 'letter', 'password')
+
     if __type__ == 'text':
         return {
             'status': True,
@@ -81,6 +85,21 @@ async def main(__type__: str, __range__: Optional[int]=None):
             fake.add_provider(internet)
             for item in range(0, __range__):
                 results.append(fake.ipv4_private())
+
+            return {
+                'status': True,
+                'programmer': 'amirali irvany',
+                'rubika': '@activate-sh',
+                'type': __type__,
+                'range': __range__,
+                'results': results
+            }
+
+
+        elif __type__ == 'user-agent':
+            results = []
+            for item in range(0, __range__):
+                results.append(fake.user_agent())
 
             return {
                 'status': True,
@@ -206,4 +225,3 @@ async def main(__type__: str, __range__: Optional[int]=None):
                 'range': __range__,
                 'results': results
             }
-
