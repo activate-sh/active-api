@@ -215,3 +215,10 @@ async def index_fake(type: str, count: Optional[int]=10):
                 'range': __range__,
                 'results': results
             }
+
+
+        else:
+            return {
+                'detail': 'The information entered is not correct!',
+                'see': __all__
+            }
