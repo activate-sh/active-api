@@ -2,6 +2,7 @@ from fastapi import FastAPI, status
 from faker import Faker
 from faker.providers import internet
 from whois import whois
+from requests import post
 
 fake = Faker()
 client = FastAPI()
@@ -9,6 +10,7 @@ client = FastAPI()
 
 @client.get('/', status_code=status.HTTP_200_OK)
 async def main():
+    '''Information about me'''
     return {
         'status': 200,
         'dev': 'amirali irvany',
@@ -311,4 +313,27 @@ async def main(text: str):
         'dev': 'amirali irvany',
         'rubika': '@active_api',
         'results': results
+    }
+
+
+parameter = [{'item': 'text'}]
+@client.post('/chatgpt/', status_code=status.HTTP_200_OK)
+async def main(text: str):
+    endpoint = 'https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta'
+    headers = {
+        'Host': 'us-central1-chat-for-chatgpt.cloudfunctions.net',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+        'User-Agent': 'com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5',
+        'Accept-Language': 'en',
+        'Content-Type': 'application/json; charset=UTF-8',
+    }
+    data = {
+        'message': text,
+    }
+    response = post(endpoint, json=data, headers=headers).json()
+    return {
+        'dev': 'amirali irvany',
+        'rubika': 'active_api',
+        'results': response
     }
