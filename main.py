@@ -2,7 +2,9 @@ from fastapi import FastAPI, status
 from faker import Faker
 from faker.providers import internet
 from whois import whois
+from langdetect import detect
 from requests import post
+from jalali.Jalalian import jdate
 
 fake = Faker()
 client = FastAPI()
@@ -20,7 +22,35 @@ async def main():
     }
 
 
-parameter = [{'item': 'type'}, {'item': 'count'}]
+parameters = [{'item': 'text'}]
+@client.get('/lang/')
+async def main(text: str):
+    '''
+    Language recognition service
+    Examples of output:
+        en
+        fa
+    '''
+    return {
+        'status': 200,
+        'dev': 'amirali irvany',
+        'rubika': '@active_api',
+        'results': detect(text)
+    }
+
+
+@client.get('/time')
+async def main():
+    '''Accurate and complete display of Farsi date and time'''
+    return {
+        'status': 200,
+        'dev': 'amirali irvany',
+        'rubika': '@active_api',
+        'results': jdate('H:i:s ,Y/n/j')
+    }
+
+
+parameters = [{'item': 'type'}, {'item': 'count'}]
 @client.get('/fake/', status_code=status.HTTP_200_OK)
 async def main(type: str, count: int):
     '''Fake information generator'''
@@ -40,7 +70,6 @@ async def main(type: str, count: int):
         }
 
 
-    # Error handling: fake_text
     elif __type__ == 'text' and __range__ <= 5:
         return {
             'status': 400,
@@ -48,7 +77,6 @@ async def main(type: str, count: int):
         }
 
 
-    # Error handling: fake_text
     elif __type__ == 'text' and __range__ > 99999:
         return {
             'status': 400,
@@ -241,7 +269,7 @@ async def main(type: str, count: int):
 
 
 
-parameter = [{'item': 'url'}]
+parameters = [{'item': 'url'}]
 @client.get('/domain/', status_code=status.HTTP_200_OK)
 async def main(url: str):
     '''
@@ -286,15 +314,26 @@ fonts = {
     21: ['ᴀ', 'ʙ', 'ᴄ', 'ᴅ', 'ᴇ', 'ғ', 'ɢ', 'ʜ', 'ɪ', 'ᴊ', 'ᴋ', 'ʟ', 'ᴍ', 'ɴ', 'ᴏ', 'ᴘ', 'ǫ', 'ʀ', 's', 'ᴛ', 'ᴜ', 'ᴠ', 'ᴡ', 'x', 'ʏ', 'ᴢ'],
     22: ['ᴬ', 'ᴮ', 'ᶜ', 'ᴰ', 'ᴱ', 'ᶠ', 'ᴳ', 'ᴴ', 'ᴵ', 'ᴶ', 'ᴷ', 'ᴸ', 'ᴹ', 'ᴺ', 'ᴼ', 'ᴾ', 'ᵟ', 'ᴿ', 'ˢ', 'ᵀ', 'ᵁ', 'ⱽ', 'ᵂ', 'ˣ', 'ᵞ', 'ᶻ'],
     23: ['卂', '乃', '匚', '刀', '乇', '下', '厶', '卄', '工', '丁', '长', '乚', '从', '𠘨', '口', '尸', '㔿', '尺', '丂', '丅', '凵', 'リ', '山', '乂', '丫', '乙'],
+    24: ['『a』', '『b』', '『c』', '『d』', '『e』', '『f』', '『g』', '『h』', '『i』', '『j』', '『k』', '『l』', '『m』', '『n』', '『o』', '『p』', '『q』', '『r』', '『s』', '『t』', '『u』', '『v』', '『w』', '『x』', '『y』', '『z』'],
+    25: ['a♥', 'b♥', 'c♥', 'd♥', 'e♥', 'f♥', 'g♥', 'h♥', 'i♥', 'j♥', 'k♥', 'l♥', 'm♥', 'n♥', 'o♥', 'p♥', 'q♥', 'r♥', 's♥', 't♥', 'u♥', 'v♥', 'w♥', 'x♥', 'y♥', 'z♥'],
+    26: ['𝕒', 'β', 'ς', 'ᗪ', '𝑒', '𝔣', '𝔾', 'ℍ', 'ᶤ', '𝕁', 'Ҝ', 'ˡ', '𝕞', 'ή', '𝔬', 'Ⓟ', '𝐪', 'Ř', '𝓢', 'ţ', 'Ｕ', 'ᐯ', 'ω', '𝔵', 'ㄚ', 'ｚ'],
+    27: ['Δ', '𝒷', 'ς', 'ⓓ', '𝒆', '𝓕', '𝑔', 'ⓗ', '𝐢', 'Ⓙ', '𝕜', 'ℓ', 'Ⓜ', 'Ň', 'Ø', '卩', 'ợ', '𝓇', 'ѕ', 'ｔ', '𝐮', '𝓋', '𝔀', '𝕩', 'у', '𝓩'],
+    28: ['𝔸', 'ᵇ', 'ς', '𝔻', '𝒆', 'ƒ', 'ģ', 'ђ', '𝐢', '𝐉', '𝐤', 'ˡ', 'м', 'ℕ', 'ᵒ', 'ק', '𝐪', '𝔯', 'ร', 'ⓣ', 'ⓤ', 'ｖ', 'ᗯ', '𝕩', 'ⓨ', 'z'],
+    29: ['α', '𝔟', 'ᑕ', 'đ', 'є', 'ғ', '𝐠', 'Ħ', 'Ｉ', '𝓙', 'к', 'Ĺ', 'м', '𝓝', 'Ｏ', 'ｐ', '𝓠', '𝓡', '𝔰', 'ţ', 'ù', '𝐕', '𝐰', 'χ', 'ｙ', 'ž'],
+    30: ['𝒶', '𝒷', '𝔠', 'Ｄ', 'ｅ', 'ⓕ', 'g', 'Ⓗ', 'ί', 'ڶ', 'ⓚ', '𝓵', '𝕄', 'ή', '𝑜', 'Ƥ', '𝓠', '𝓻', '𝐒', 'ⓣ', 'Ｕ', 'ש', 'ｗ', 'ｘ', 'Ⓨ', 'Ž'],
+    31: ['Ⓐ', '𝕓', '𝓬', 'Đ', 'ⓔ', '𝒇', 'g', '𝕙', 'เ', 'Ｊ', 'ᛕ', 'ᒪ', '𝓂', 'ⓝ', '𝕆', 'Ƥ', '𝓆', 'г', '𝐒', 'т', 'Ǘ', '𝐯', 'Ŵ', '𝐗', '𝕪', 'Ｚ'],
+    32: ['ⓐ', '𝔹', '𝐂', 'Ⓓ', '𝒆', 'ℱ', 'Ⓖ', 'Ｈ', 'ᶤ', '𝐣', 'ｋ', 'Ⓛ', '𝓶', 'Ň', '𝐎', 'ⓟ', 'ⓠ', 'ʳ', 'Ŝ', 'ţ', 'Ữ', 'ｖ', '𝔴', 'Ж', '¥', 'ｚ'],
+    33: ['𝒶', '𝔹', 'ｃ', 'ⓓ', '€', '𝔽', '𝐆', 'Ⓗ', 'ι', 'ｊ', 'Ｋ', 'ｌ', '𝕞', 'ℕ', 'Ｏ', '𝐏', 'Ɋ', 'я', '丂', '𝓣', 'υ', 'ᐯ', 'ⓦ', '乂', '𝕪', 'z'],
 }
 
-parameter = [{'item': 'text'}]
+
+parameters = [{'item': 'text'}]
 @client.get('/font/')
 async def main(text: str):
     '''
     Font generator
     Support Language: English
-    Number of available fonts: 24
+    Number of available fonts: 34
     '''
     converted_text = ''
     for count in range(0, len(fonts)):
@@ -313,27 +352,4 @@ async def main(text: str):
         'dev': 'amirali irvany',
         'rubika': '@active_api',
         'results': results
-    }
-
-
-parameter = [{'item': 'text'}]
-@client.post('/chatgpt/', status_code=status.HTTP_200_OK)
-async def main(text: str):
-    endpoint = 'https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta'
-    headers = {
-        'Host': 'us-central1-chat-for-chatgpt.cloudfunctions.net',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-        'User-Agent': 'com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5',
-        'Accept-Language': 'en',
-        'Content-Type': 'application/json; charset=UTF-8',
-    }
-    data = {
-        'message': text,
-    }
-    response = post(endpoint, json=data, headers=headers).json()
-    return {
-        'dev': 'amirali irvany',
-        'rubika': 'active_api',
-        'results': response
     }
