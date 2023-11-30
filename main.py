@@ -3,8 +3,8 @@ from faker import Faker
 from faker.providers import internet
 from whois import whois
 from langdetect import detect
-from requests import post
 from jalali.Jalalian import jdate
+from requests import post
 
 fake = Faker()
 client = FastAPI()
@@ -353,3 +353,20 @@ async def main(text: str):
         'rubika': '@active_api',
         'results': results
     }
+
+
+parameters = [{'item': 'text'}]
+@client.post('/gpt/')
+async def main(text: str):
+    endpoint = 'https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta'
+    headers = {
+        'Host': 'us-central1-chat-for-chatgpt.cloudfunctions.net',
+        'Connection': 'keep-alive', 'Accept': '*/*',
+        'User-Agent': 'com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5', 'Accept-Language': 'en',
+        'Content-Type': 'application/json; charset=UTF-8'
+    }
+    data = {
+        'message': text,
+    }
+    response = post(endpoint, json=data, headers=headers)
+    return response.json()
