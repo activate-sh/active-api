@@ -4,7 +4,6 @@ from faker.providers import internet
 from whois import whois
 from langdetect import detect
 from jalali.Jalalian import jdate
-from requests import post
 
 fake = Faker()
 client = FastAPI()
@@ -239,15 +238,6 @@ async def main(type: str, count: int):
         }
 
 
-    elif __type__ == 'letters':
-        return {
-            'status': 200,
-            'dev': 'amirali irvany',
-            'rubika': '@active_api',
-            'results': fake.random_letters(__range__)
-        }
-
-
     elif __type__ == 'password':
         results = []
         for item in range(0, __range__):
@@ -261,6 +251,13 @@ async def main(type: str, count: int):
         }
 
 
+    elif __type__ == 'letters':
+        return {
+            'status': 200,
+            'dev': 'amirali irvany',
+            'rubika': '@active_api',
+            'results': fake.random_letters(__range__)
+        }
     else:
         return {
             'detail': 'The information entered is not correct!',
@@ -353,20 +350,3 @@ async def main(text: str):
         'rubika': '@active_api',
         'results': results
     }
-
-
-parameters = [{'item': 'text'}]
-@client.post('/gpt/')
-async def main(text: str):
-    endpoint = 'https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta'
-    headers = {
-        'Host': 'us-central1-chat-for-chatgpt.cloudfunctions.net',
-        'Connection': 'keep-alive', 'Accept': '*/*',
-        'User-Agent': 'com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5', 'Accept-Language': 'en',
-        'Content-Type': 'application/json; charset=UTF-8'
-    }
-    data = {
-        'message': text,
-    }
-    response = post(endpoint, json=data, headers=headers)
-    return response.json()
